@@ -25,3 +25,7 @@ def create_card(card: dict, db: Session = Depends(get_db)):
 def get_card(card_id: str, db: Session = Depends(get_db)):
     card = db.query(Card).filter(Card.id == card_id).first()
     return card
+
+@app.get("/")
+def root():
+    return {"message": "API Gateway Running"}
