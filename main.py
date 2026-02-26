@@ -11,16 +11,20 @@ app = FastAPI()
 class CardCreate(BaseModel):
     id: str
     status: str
-    transaction_type: str
-    transaction_limit: float
+    transaction_types: str
+    atm_limit: float
+    pos_limit: float
+    ecom_limit: float
     currency: str
 
 
 class CardResponse(BaseModel):
     id: str
     status: str
-    transaction_type: str
-    transaction_limit: float
+    transaction_types: str
+    atm_limit: float
+    pos_limit: float
+    ecom_limit: float
     currency: str
 
     class Config:
