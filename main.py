@@ -41,7 +41,8 @@ def get_db():
 
 
 @app.post("/cards", response_model=CardResponse)
-def create_card(card: CardCreate, db: Session = Depends(get_db)):
+def create_card(card: CardCreate, db: Session = Depends(get_db), user=Depends(verify_token)):
+    print("Authenticated user:", user)    
     new_card = Card(**card.dict())
     db.add(new_card)
     db.commit()
@@ -51,6 +52,7 @@ def create_card(card: CardCreate, db: Session = Depends(get_db)):
 
 @app.get("/cards/{card_id}", response_model=CardResponse)
 def get_card(card_id: str, db: Session = Depends(get_db), user=Depends(verify_token)):
+    print("Authenticated user:", user)    
     card = db.query(Card).filter(Card.id == card_id).first()
     if not card:
         raise HTTPException(status_code=404, detail="Card not found")
