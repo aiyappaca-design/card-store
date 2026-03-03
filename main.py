@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from database import SessionLocal, engine
 from models import Base, Card
 from pydantic import BaseModel
+from auth import verify_token
 
 Base.metadata.create_all(bind=engine)
 
