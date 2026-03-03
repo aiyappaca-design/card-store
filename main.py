@@ -49,7 +49,7 @@ def create_card(card: CardCreate, db: Session = Depends(get_db)):
 
 
 @app.get("/cards/{card_id}", response_model=CardResponse)
-def get_card(card_id: str, db: Session = Depends(get_db)):
+def get_card(card_id: str, db: Session = Depends(get_db), user=Depends(verify_token)):
     card = db.query(Card).filter(Card.id == card_id).first()
     if not card:
         raise HTTPException(status_code=404, detail="Card not found")
